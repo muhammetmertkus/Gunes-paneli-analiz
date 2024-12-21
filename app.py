@@ -242,12 +242,12 @@ yearly_optimum_angle = calculate_annual_optimum_angle(latitude)
 
 solar_data = {
     'Ay': [],
-    'Gün Sayısı (J)': [],
-    'Güneş Sapma Açısı (°)': [],
-    'Optimum Panel Açısı (°)': [],
-    'Ortalama Günlük Işınım (W/m²)': [],
-    'Ortalama Hava Sıcaklığı (°C)': [],
-    'Panel Sıcaklığı (°C)': []
+    'Gun Sayisi (J)': [],
+    'Gunes Sapma Acisi (°)': [],
+    'Optimum Panel Acisi (°)': [],
+    'Ortalama Gunluk Isinim (W/m²)': [],
+    'Ortalama Hava Sicakligi (°C)': [],
+    'Panel Sicakligi (°C)': []
 }
 
 panel_data = {
@@ -310,12 +310,12 @@ for i in range(len(months)):
 
     # Solar Data'ya ekle
     solar_data['Ay'].append(month)
-    solar_data['Gün Sayısı (J)'].append(day)
-    solar_data['Güneş Sapma Açısı (°)'].append(round(declination, 2))
-    solar_data['Optimum Panel Açısı (°)'].append(round(optimum_angle, 2))
-    solar_data['Ortalama Günlük Işınım (W/m²)'].append(round(Gg, 2))
-    solar_data['Ortalama Hava Sıcaklığı (°C)'].append(Ta)
-    solar_data['Panel Sıcaklığı (°C)'].append(round(Tc, 2))
+    solar_data['Gun Sayisi (J)'].append(day)
+    solar_data['Gunes Sapma Acisi (°)'].append(round(declination, 2))
+    solar_data['Optimum Panel Acisi (°)'].append(round(optimum_angle, 2))
+    solar_data['Ortalama Gunluk Isinim (W/m²)'].append(round(Gg, 2))
+    solar_data['Ortalama Hava Sicakligi (°C)'].append(Ta)
+    solar_data['Panel Sicakligi (°C)'].append(round(Tc, 2))
 
     # Panel Data'ya ekle
     panel_data['Ay'].append(month)
@@ -381,7 +381,7 @@ with tab1:
     fig1 = go.Figure()
     fig1.add_trace(go.Scatter(
         x=df_solar['Ay'],
-        y=df_solar['Güneş Sapma Açısı (°)'],
+        y=df_solar['Gunes Sapma Acisi (°)'],
         mode='lines+markers',
         name='Güneş Sapma Açısı (°)',
         marker=dict(symbol='circle', size=8, color='#1f77b4'),
@@ -389,7 +389,7 @@ with tab1:
     ))
     fig1.add_trace(go.Scatter(
         x=df_solar['Ay'],
-        y=df_solar['Optimum Panel Açısı (°)'],
+        y=df_solar['Optimum Panel Acisi (°)'],
         mode='lines+markers',
         name='Optimum Panel Açısı (°)',
         marker=dict(symbol='square', size=8, color='#2ca02c'),
@@ -399,7 +399,7 @@ with tab1:
         x=df_solar['Ay'],
         y=[yearly_optimum_angle]*len(df_solar),
         mode='lines',
-        name=f'Yıllık Optimum Açı ({yearly_optimum_angle}��)',
+        name=f'Yıllık Optimum Açı ({yearly_optimum_angle}°)',
         line=dict(color='#d62728', dash='dash', width=2)
     ))
     fig1.update_layout(
@@ -422,10 +422,10 @@ with tab1:
     fig3 = px.bar(
         df_solar,
         x='Ay',
-        y='Ortalama Günlük Işınım (W/m²)',
+        y='Ortalama Gunluk Isinim (W/m²)',
         title='Aylara Göre Ortalama Günlük Işınım',
-        labels={'Ortalama Günlük Işınım (W/m²)': 'Işınım (W/m²)'},
-        color='Ortalama Günlük Işınım (W/m²)',
+        labels={'Ortalama Gunluk Isinim (W/m²)': 'Işınım (W/m²)'},
+        color='Ortalama Gunluk Isinim (W/m²)',
         color_continuous_scale='Viridis',
         template='plotly_white'
     )
@@ -439,8 +439,8 @@ with tab1:
     fig4 = go.Figure()
     fig4.add_trace(go.Bar(
         x=df_solar['Ay'],
-        y=df_solar['Ortalama Günlük Işınım (W/m²)'],
-        name='Ortalama Günlük Işınım (W/m²)',
+        y=df_solar['Ortalama Gunluk Isinim (W/m²)'],
+        name='Ortalama Gunluk Isinim (W/m²)',
         marker_color='#1f77b4',
         opacity=0.7
     ))
@@ -472,9 +472,9 @@ with tab1:
     fig5 = px.line(
         df_solar,
         x='Ay',
-        y='Panel Sıcaklığı (°C)',
-        title='Aylara Göre Panel Sıcaklığı',
-        labels={'Panel Sıcaklığı (°C)': 'Panel Sıcaklığı (°C)'},
+        y='Panel Sicakligi (°C)',
+        title='Aylara Gore Panel Sicakligi',
+        labels={'Panel Sicakligi (°C)': 'Panel Sicakligi (°C)'},
         markers=True,
         line_shape='linear',
         template='plotly_white'
@@ -660,7 +660,7 @@ with tab2:
         
         st.plotly_chart(fig_reactive, use_container_width=True)
 
-    # Aç��klama kutusu
+    # Açıklama kutusu
     st.markdown("""
     <div style='background-color: #e1f5fe; padding: 15px; border-radius: 5px; margin-top: 20px'>
         <h4 style='color: #0277bd; margin-bottom: 10px'>📝 Önemli Bilgiler</h4>
@@ -801,13 +801,14 @@ with tab3:
         </div>
     """, unsafe_allow_html=True)
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     
     with col1:
         kredi_tutari = st.number_input(
             "Kredi Tutarı (TL)",
             value=float(panel_maliyet['toplam_maliyet'] + kurulum_maliyet['toplam_kurulum']),
-            step=1000.0
+            step=1000.0,
+            help="Kullanmak istediğiniz kredi tutarını giriniz"
         )
     
     with col2:
@@ -816,183 +817,232 @@ with tab3:
             value=5,
             step=1,
             min_value=1,
-            max_value=10
+            max_value=10,
+            help="1-10 yıl arası vade seçebilirsiniz"
+        )
+    
+    with col3:
+        faiz_orani = st.number_input(
+            "Yıllık Faiz Oranı (%)",
+            value=35.0,
+            step=0.1,
+            min_value=0.0,
+            max_value=100.0,
+            help="Yıllık faiz oranını giriniz"
         )
 
-    kredi_plani = finansal_analizler.kredi_hesapla(kredi_tutari, vade_yil)
+    # Kredi özet bilgileri
+    aylik_faiz = faiz_orani / 12 / 100
+    vade_ay = vade_yil * 12
+    aylik_taksit = (kredi_tutari * aylik_faiz * (1 + aylik_faiz)**vade_ay) / ((1 + aylik_faiz)**vade_ay - 1)
+    toplam_geri_odeme = aylik_taksit * vade_ay
+    toplam_faiz = toplam_geri_odeme - kredi_tutari
+
+    # Kredi özet kartları
+    ozet_col1, ozet_col2, ozet_col3, ozet_col4 = st.columns(4)
     
-    st.markdown("#### Kredi Ödeme Planı")
-    st.dataframe(
-        kredi_plani.style.format({
-            'taksit': '{:,.2f} TL',
-            'anapara': '{:,.2f} TL',
-            'faiz': '{:,.2f} TL',
-            'kalan_anapara': '{:,.2f} TL'
-        })
-    )
+    with ozet_col1:
+        st.metric(
+            "Aylık Taksit",
+            f"{aylik_taksit:,.2f} TL",
+            help="Her ay ödenecek sabit taksit tutarı"
+        )
+    
+    with ozet_col2:
+        st.metric(
+            "Toplam Geri Ödeme",
+            f"{toplam_geri_odeme:,.2f} TL",
+            f"{toplam_geri_odeme - kredi_tutari:,.2f} TL Fark",
+            help="Toplam ödenecek tutar"
+        )
+    
+    with ozet_col3:
+        st.metric(
+            "Toplam Faiz",
+            f"{toplam_faiz:,.2f} TL",
+            help="Ödenecek toplam faiz tutarı"
+        )
+    
+    with ozet_col4:
+        st.metric(
+            "Faiz/Anapara Oranı",
+            f"%{(toplam_faiz/kredi_tutari)*100:.1f}",
+            help="Toplam faizin anaparaya oranı"
+        )
 
-    # Bilgi Kutusu
-    st.markdown("""
-        <div style='background-color: #e8f4f8; padding: 20px; border-radius: 10px; margin-top: 30px'>
-            <h4 style='color: #2c3e50; margin-bottom: 10px'>ℹ️ Önemli Bilgiler</h4>
-            <ul style='color: #34495e; margin-bottom: 0'>
-                <li>KDV Oranı: %{}</li>
-                <li>Yıllık Enflasyon Oranı: %{}</li>
-                <li>Yıllık Elektrik Zam Oranı: %{}</li>
-                <li>Yıllık Faiz Oranı: %{}</li>
-            </ul>
-        </div>
-    """.format(
-        finansal_analizler.kdv_orani * 100,
-        finansal_analizler.enflasyon_orani * 100,
-        finansal_analizler.elektrik_zam_orani * 100,
-        finansal_analizler.faiz_orani * 100
-    ), unsafe_allow_html=True)
+    # Kredi ödeme planı (açılır-kapanır)
+    with st.expander("💰 Detaylı Kredi Ödeme Planını Görüntüle", expanded=False):
+        kredi_plani = finansal_analizler.kredi_hesapla(kredi_tutari, vade_yil, faiz_orani)
+        
+        # Ödeme planı tablosu
+        st.dataframe(
+            kredi_plani.style.format({
+                'Taksit No': '{:.0f}',
+                'Taksit Tutarı': '{:,.2f} TL',
+                'Anapara': '{:,.2f} TL',
+                'Faiz': '{:,.2f} TL',
+                'Kalan Anapara': '{:,.2f} TL'
+            }).background_gradient(
+                subset=['Faiz'],
+                cmap='Oranges'
+            ).background_gradient(
+                subset=['Anapara'],
+                cmap='Greens'
+            )
+        )
 
-    # Elektrik Üretim Geliri Analizi
-    st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid #ffa000; margin: 30px 0'>
-            <h3 style='color: #2c3e50; margin-bottom: 10px'>⚡ Elektrik Üretim Geliri Analizi</h3>
-        </div>
-    """, unsafe_allow_html=True)
+        # Kredi planı grafiği
+        fig_kredi = go.Figure()
+        fig_kredi.add_trace(go.Bar(
+            name='Anapara',
+            x=kredi_plani['Taksit No'],
+            y=kredi_plani['Anapara'],
+            marker_color='#2e7d32'
+        ))
+        fig_kredi.add_trace(go.Bar(
+            name='Faiz',
+            x=kredi_plani['Taksit No'],
+            y=kredi_plani['Faiz'],
+            marker_color='#ef6c00'
+        ))
+
+        fig_kredi.update_layout(
+            title='Aylık Anapara ve Faiz Dağılımı',
+            barmode='stack',
+            xaxis_title='Taksit No',
+            yaxis_title='Tutar (TL)',
+            plot_bgcolor='white',
+            paper_bgcolor='white'
+        )
+        
+        st.plotly_chart(fig_kredi, use_container_width=True)
+
+        # Kredi bilgi kutusu
+        st.info("""
+            💡 **Kredi Hesaplama Bilgileri:**
+            - Hesaplamalar eşit taksitli (annüite) kredi sistemine göre yapılmıştır
+            - Taksit tutarları her ay sabittir
+            - KKDF, BSMV gibi ek masraflar dahil değildir
+            - Erken ödeme ve kredi yapılandırma senaryoları hesaplanmamıştır
+        """)
+
+    # Enerji Dengesi Analizi bölümünde
+    st.markdown("### ⚡ Enerji Dengesi ve Verim Analizi")
 
     col1, col2 = st.columns(2)
     with col1:
-        yillik_uretim = st.number_input(
-            "Yıllık Üretim (kWh)",
+        panel_uretimi = st.number_input(
+            "Yıllık Panel Üretimi (kWh)",
             value=10000.0,
-            step=1000.0
+            step=1000.0,
+            help="Panelin yıllık teorik üretim miktarı"
         )
-    with col2:
-        elektrik_birim_fiyat = st.number_input(
-            "Elektrik Birim Fiyatı (TL/kWh)",
+        
+        elektrik_satis_fiyati = st.number_input(
+            "Elektrik Satış Fiyatı (TL/kWh)",
             value=1.5,
-            step=0.1
+            step=0.1,
+            help="Şebekeye satış birim fiyatı"
         )
 
-    elektrik_gelir = finansal_analizler.elektrik_uretim_geliri(yillik_uretim, elektrik_birim_fiyat)
-    st.dataframe(
-        elektrik_gelir.style.format({
-            'birim_fiyat': '{:.2f} TL',
-            'yillik_uretim': '{:,.2f} kWh',
-            'yillik_gelir': '{:,.2f} TL'
-        })
-    )
-
-    # Geri Ödeme Süresi Analizi
-    st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid #7b1fa2; margin: 30px 0'>
-            <h3 style='color: #2c3e50; margin-bottom: 10px'>📈 Geri Ödeme Süresi Analizi</h3>
-        </div>
-    """, unsafe_allow_html=True)
-
-    toplam_yatirim = panel_maliyet['toplam_maliyet'] + kurulum_maliyet['toplam_kurulum']
-    yillik_tasarruf = elektrik_gelir['yillik_gelir'].iloc[0] - bakim_maliyet['yillik_bakim']
-
-    geri_odeme = finansal_analizler.geri_odeme_suresi(yillik_tasarruf, toplam_yatirim)
-    st.dataframe(
-        geri_odeme.style.format({
-            'yillik_tasarruf': '{:,.2f} TL',
-            'kalan_yatirim': '{:,.2f} TL'
-        })
-    )
-
-    # Karbon Ayak İzi Analizi
-    st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid #388e3c; margin: 30px 0'>
-            <h3 style='color: #2c3e50; margin-bottom: 10px'>🌱 Karbon Ayak İzi Analizi</h3>
-        </div>
-    """, unsafe_allow_html=True)
-
-    karbon_analiz = finansal_analizler.karbon_ayak_izi_analizi(yillik_uretim)
-    
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric(
-            "Yıllık CO₂ Tasarrufu",
-            f"{karbon_analiz['yillik_karbon_tasarrufu']:.2f} ton"
-        )
     with col2:
-        st.metric(
-            "25 Yıllık CO₂ Tasarrufu",
-            f"{karbon_analiz['25_yillik_tasarruf']:.2f} ton"
+        bina_tuketimi = st.number_input(
+            "Yıllık Bina Tüketimi (kWh)",
+            value=12000.0,
+            step=1000.0,
+            help="Binanın yıllık elektrik tüketimi"
         )
-    with col3:
-        st.metric(
-            "Ağaç Eşdeğeri",
-            f"{karbon_analiz['agac_esdegeri']:.0f} ağaç"
+        
+        elektrik_alis_fiyati = st.number_input(
+            "Elektrik Alış Fiyatı (TL/kWh)",
+            value=1.8,
+            step=0.1,
+            help="Şebekeden alış birim fiyatı"
         )
 
-    # Duyarlılık Analizi
-    st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid #0277bd; margin: 30px 0'>
-            <h3 style='color: #2c3e50; margin-bottom: 10px'>📊 Duyarlılık Analizi</h3>
-        </div>
-    """, unsafe_allow_html=True)
+    # Gelişmiş parametreler
+    with st.expander("🔧 Gelişmiş Sistem Parametreleri", expanded=False):
+        col3, col4 = st.columns(2)
+        with col3:
+            panel_efficiency = st.slider(
+                "Panel Verimi (%)",
+                min_value=15.0,
+                max_value=25.0,
+                value=20.0,
+                step=0.1,
+                help="Panel verim oranı"
+            ) / 100
+            
+            satis_carpani = st.slider(
+                "Satış Fiyat Çarpanı",
+                min_value=0.5,
+                max_value=1.0,
+                value=0.85,
+                step=0.05,
+                help="Şebekeye satış fiyat çarpanı"
+            )
+        
+        with col4:
+            kayip_faktoru = st.slider(
+                "Sistem Kayıpları (%)",
+                min_value=5.0,
+                max_value=25.0,
+                value=15.0,
+                step=1.0,
+                help="Toplam sistem kayıpları"
+            ) / 100
 
-    # Örnek baz senaryo ve değişken parametreler
-    baz_senaryo = {
-        'nakit_akislari': [yillik_tasarruf] * 25,
-        'baslangic_yatirimi': toplam_yatirim
-    }
-    
-    degisken_parametreler = {
-        'elektrik_zam_orani': [0.25, 0.35, 0.45],
-        'enflasyon_orani': [0.35, 0.45, 0.55]
+    # Parametreleri güncelle
+    yeni_parametreler = {
+        'panel_efficiency': panel_efficiency,
+        'satis_carpani': satis_carpani,
+        'kayip_faktoru': kayip_faktoru,
+        'elektrik_satis_fiyati': elektrik_satis_fiyati,
+        'elektrik_alis_fiyati': elektrik_alis_fiyati
     }
 
-    duyarlilik = finansal_analizler.duyarlilik_analizi(baz_senaryo, degisken_parametreler)
-    st.dataframe(
-        duyarlilik.style.format({
-            'npv': '{:,.2f} TL',
-            'irr': '{:.2%}'
-        })
+    varsayilan_parametreler = finansal_analizler.guncelle_varsayilan_parametreler(yeni_parametreler)
+
+    # Analiz sonuçlarını al
+    enerji_analizi = finansal_analizler.enerji_dengesi_analizi(
+        panel_uretimi=panel_uretimi,
+        bina_tuketimi=bina_tuketimi,
+        elektrik_satis_fiyati=elektrik_satis_fiyati,
+        elektrik_alis_fiyati=elektrik_alis_fiyati,
+        panel_efficiency=panel_efficiency,
+        varsayilan_parametreler=varsayilan_parametreler
     )
 
-    # Risk Analizi
-    st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid #c62828; margin: 30px 0'>
-            <h3 style='color: #2c3e50; margin-bottom: 10px'>🎲 Risk Analizi</h3>
-        </div>
-    """, unsafe_allow_html=True)
+    # Sonuçları göster
+    col5, col6, col7, col8 = st.columns(4)
 
-    risk_sonuclari = finansal_analizler.risk_analizi(senaryo_sayisi=1000)
-    
-    # Risk analizi görselleştirmesi
-    fig = go.Figure()
-    fig.add_trace(go.Histogram(x=risk_sonuclari['elektrik_zam'], name='Elektrik Zam Dağılımı'))
-    fig.add_trace(go.Histogram(x=risk_sonuclari['enflasyon'], name='Enflasyon Dağılımı'))
-    fig.update_layout(
-        title='Risk Faktörleri Dağılımı',
-        barmode='overlay',
-        xaxis_title='Oran',
-        yaxis_title='Frekans'
-    )
-    st.plotly_chart(fig)
+    with col5:
+        st.metric(
+            "Net Üretim",
+            f"{enerji_analizi['Enerji Dengesi']['Net Panel Üretimi (kWh)']:,.0f} kWh",
+            f"Kayıp: {enerji_analizi['Verim Analizi']['Kayıplar (%)']:.1f}%"
+        )
 
-    # Proje Raporu
-    st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid #455a64; margin: 30px 0'>
-            <h3 style='color: #2c3e50; margin-bottom: 10px'>📋 Proje Raporu</h3>
-        </div>
-    """, unsafe_allow_html=True)
+    with col6:
+        st.metric(
+            "Öz Tüketim Oranı",
+            f"{enerji_analizi['Verim Analizi']['Öz Tüketim Oranı (%)']:.1f}%",
+            f"Şebeke Bağımlılığı: {enerji_analizi['Verim Analizi']['Şebeke Bağımlılığı (%)']:.1f}%"
+        )
 
-    proje_bilgileri = {
-        'toplam_yatirim': toplam_yatirim,
-        'yillik_uretim': yillik_uretim,
-        'sistem_gucu': sistem_gucu,
-        'nakit_akislari': [yillik_tasarruf] * 25,
-        'yillik_tasarruf': yillik_tasarruf
-    }
+    with col7:
+        st.metric(
+            "Satış Geliri",
+            f"{enerji_analizi['Finansal Analiz']['Şebekeye Satış Geliri (TL)']:,.2f} TL",
+            f"Fazla Enerji: {enerji_analizi['Enerji Dengesi']['Fazla Enerji (kWh)']:,.0f} kWh"
+        )
 
-    rapor = finansal_analizler.rapor_olustur(proje_bilgileri)
-    
-    # JSON yerine düzenli gösterim
-    for kategori, degerler in rapor.items():
-        st.subheader(f"📊 {kategori.replace('_', ' ').title()}")
-        for baslik, deger in degerler.items():
-            st.metric(label=baslik, value=deger)
-        st.markdown("---")
+    with col8:
+        st.metric(
+            "Alış Maliyeti",
+            f"{enerji_analizi['Finansal Analiz']['Şebekeden Alış Maliyeti (TL)']:,.2f} TL",
+            f"Eksik Enerji: {enerji_analizi['Enerji Dengesi']['Eksik Enerji (kWh)']:,.0f} kWh"
+        )
 
 # ==========================================
 # Program Nasıl Çalışır Sekmesi
@@ -1026,16 +1076,16 @@ with tab4:
     
     st.dataframe(
         df_solar.style.format({
-            'Güneş Sapma Açısı (°)': "{:.2f}",
-            'Optimum Panel Açısı (°)': "{:.2f}",
-            'Ortalama Günlük Işınım (W/m²)': "{:.2f}",
-            'Panel Sıcaklığı (°C)': "{:.2f}"
+            'Gunes Sapma Acisi (°)': "{:.2f}",
+            'Optimum Panel Acisi (°)': "{:.2f}",
+            'Ortalama Gunluk Isinim (W/m²)': "{:.2f}",
+            'Panel Sicakligi (°C)': "{:.2f}"
         }).background_gradient(
             cmap='YlOrRd', 
-            subset=['Ortalama Günlük Işınım (W/m²)']
+            subset=['Ortalama Gunluk Isinim (W/m²)']
         ).background_gradient(
             cmap='YlOrRd', 
-            subset=['Panel Sıcaklığı (°C)']
+            subset=['Panel Sicakligi (°C)']
         )
     )
     
