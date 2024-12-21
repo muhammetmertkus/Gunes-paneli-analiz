@@ -66,7 +66,7 @@ import numpy as np
 
 def calculate_panel_voltage_and_current(panel_data, irradiance, temperature):
     """
-    Panel voltajını ve akımını tek diyot modeline göre hesaplar.
+    3-seviyeli IGBT evirici için panel voltaj ve akım hesaplaması
     """
     # Sabitler
     k = 1.380649e-23  # Boltzmann sabiti [J/K]
@@ -77,6 +77,11 @@ def calculate_panel_voltage_and_current(panel_data, irradiance, temperature):
     # Referans değerler
     T_ref = 298.15  # Referans sıcaklık (Kelvin)
     G_ref = 1000  # Referans ışınım (W/m²)
+    Vdc_nom = 480  # Nominal DC bağlantı gerilimi (V)
+    
+    # 3-seviyeli evirici için gerilim seviyeleri
+    Vdc_max = 583  # Maksimum DC gerilimi (V)
+    Vdc_min = 357  # Minimum DC gerilimi (V)
     
     # Panel parametreleri (tek modül için)
     Voc = panel_data['Voc']  # Açık devre gerilimi
@@ -100,12 +105,20 @@ def calculate_panel_voltage_and_current(panel_data, irradiance, temperature):
     series_modules = panel_data['series_modules']
     parallel_strings = panel_data['parallel_strings']
     
-    # Toplam sistem değerleri
+    # 3-seviyeli evirici için gerilim kontrolü
     V_total = V_module * series_modules
+    
+    # DC bağlantı gerilimi sınırlaması
+    if V_total > Vdc_max:
+        V_total = Vdc_max
+    elif V_total < Vdc_min:
+        V_total = Vdc_min
+        
+    # Toplam akım hesabı
     I_total = I_module * parallel_strings
     
     # Güvenlik kontrolleri
-    V_total = max(0, min(V_total, Voc * series_modules))
+    V_total = max(Vdc_min, min(V_total, Vdc_max))
     I_total = max(0, min(I_total, Isc * parallel_strings))
     
     return V_total, I_total
