@@ -66,32 +66,46 @@ import numpy as np
 
 def calculate_panel_voltage_and_current(panel_data, irradiance, temperature):
     """
-    Panel voltajını ve akımını SunPower SPR-415E-WHT-D parametrelerine göre hesaplar.
+    Panel voltajını ve akımını tek diyot modeline göre hesaplar.
     """
+    # Sabitler
+    k = 1.380649e-23  # Boltzmann sabiti [J/K]
+    q = 1.60217663e-19  # Elektron yükü [C]
+    k_i = 0.0004  # Akım sıcaklık katsayısı [A/°C]
+    k_v = -0.0023  # Gerilim sıcaklık katsayısı [V/°C]
+    
     # Referans değerler
-    T_ref = 25  # Referans sıcaklık (°C)
+    T_ref = 298.15  # Referans sıcaklık (Kelvin)
     G_ref = 1000  # Referans ışınım (W/m²)
     
-    # Panel parametreleri
+    # Panel parametreleri (tek modül için)
+    Voc = panel_data['Voc']  # Açık devre gerilimi
+    Isc = panel_data['Isc']  # Kısa devre akımı
     Vmp = panel_data['Vmp']  # Maksimum güç noktası gerilimi
     Imp = panel_data['Imp']  # Maksimum güç noktası akımı
-    k_v = -0.229/100  # Gerilim sıcaklık katsayısı
-    k_i = 0.04/100   # Akım sıcaklık katsayısı
+    
+    # Sıcaklık düzeltmesi
+    T = temperature + 273.15
+    delta_T = T - T_ref
+    
+    # Tek modül için voltaj ve akım hesaplama
+    # Sıcaklık etkisi
+    V_module = Vmp * (1 + k_v * delta_T)
+    I_module = Imp * (1 + k_i * delta_T)
+    
+    # Işınım etkisi (sadece akımı etkiler)
+    I_module = I_module * (irradiance / G_ref)
     
     # Seri ve paralel konfigürasyon
     series_modules = panel_data['series_modules']
     parallel_strings = panel_data['parallel_strings']
     
-    # Sıcaklık düzeltmesi
-    delta_T = temperature - T_ref
-    V_temp = Vmp * (1 + k_v * delta_T)
-    I_temp = Imp * (1 + k_i * delta_T)
-    
-    # Işınım düzeltmesi (sadece akımı etkiler)
-    I_irr = I_temp * (irradiance / G_ref)
-    
     # Toplam sistem değerleri
-    total_voltage = V_temp * series_modules
-    total_current = I_irr * parallel_strings
+    V_total = V_module * series_modules
+    I_total = I_module * parallel_strings
     
-    return total_voltage, total_current
+    # Güvenlik kontrolleri
+    V_total = max(0, min(V_total, Voc * series_modules))
+    I_total = max(0, min(I_total, Isc * parallel_strings))
+    
+    return V_total, I_total
