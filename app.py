@@ -95,7 +95,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Profil resmi dosya yolu
-image_path = r"C:\Users\mert1\OneDrive\Masaüstü\dist\images\muhammet_mert_kus.jpg"
+image_path = r"images\muhammet_mert_kus.jpg"
 
 # Resmi Base64 formatına çevirme fonksiyonu
 def get_base64_image(image_path):
