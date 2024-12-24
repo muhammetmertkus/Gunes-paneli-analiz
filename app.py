@@ -25,6 +25,8 @@ finansal_analizler = FinansalAnalizler()
 
 from building_energy_analysis import calculate_building_energy
 from calisir import program_nasil_calisir
+from simulink_comparison import simulink_karsilastirma
+from time_series_analysis import show_time_series_analysis
 
 # ==========================================
 # Sabit Veriler
@@ -105,38 +107,81 @@ def get_base64_image(image_path):
 base64_image = get_base64_image(image_path)
 
 # Geliştirici bilgileri
+# Geliştirici bilgileri
 st.markdown(
-    f"""
-    <div style="display: flex; align-items: center; justify-content: center; padding: 20px; 
-         background-color: #f8f9fa; border-radius: 15px; margin-bottom: 30px">
-        <img src="data:image/jpeg;base64,{base64_image}" alt="Profile Picture" 
-             style="border-radius: 50%; width: 120px; height: 120px; margin-right: 20px; border: 3px solid #4CAF50">
-        <div style="text-align: left;">
-            <h2 style="font-family: Arial, sans-serif; color: #4CAF50; margin: 0;">Muhammet Mert Kuş</h2>
-            <p style="font-size: 18px; color: #555; margin: 5px 0;">Enerji Sistemleri Mühendisi</p>
-            <p style="font-size: 16px; color: #666; margin: 5px 0;">
-                🎓 Eskişehir Osmangazi Üniversitesi
-                <br>
-                📧 muhammetmertkus@gmail.com
-            </p>
-            <div style="margin-top: 10px;">
-                <span style="background-color: #e8f5e9; padding: 5px 10px; border-radius: 15px; margin-right: 10px;">
-                    🌞 Güneş Enerjisi
-                </span>
-                <span style="background-color: #e8f5e9; padding: 5px 10px; border-radius: 15px; margin-right: 10px;">
-                    ⚡ Enerji Verimliliği
-                </span>
-                <span style="background-color: #e8f5e9; padding: 5px 10px; border-radius: 15px;">
-                    🏢 Bina Enerji Sistemleri
-                </span>
-            </div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True
+   f"""
+   <div style="display: flex; align-items: center; justify-content: center; padding: 20px; 
+        background: linear-gradient(135deg, #f6f9fc 0%, #eef2f7 100%);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid rgba(255,255,255,0.8);
+        border-radius: 15px; 
+        margin-bottom: 30px;
+        backdrop-filter: blur(10px);">
+       <img src="data:image/jpeg;base64,{base64_image}" alt="Profile Picture" 
+            style="border-radius: 50%; width: 120px; height: 120px; margin-right: 20px; 
+                   border: 3px solid #4CAF50;
+                   box-shadow: 0 4px 10px rgba(76,175,80,0.2);">
+       <div style="text-align: left;">
+           <h2 style="font-family: Arial, sans-serif; color: #2c3e50; margin: 0;
+                      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">⚡ Muhammet Mert Kuş ⚡</h2>
+           <p style="font-size: 18px; color: #34495e; margin: 5px 0;">Elektrik ve Elektronik Mühendisi</p>
+           <p style="font-size: 16px; color: #576574; margin: 5px 0;">
+               🎓 Eskişehir Osmangazi Üniversitesi
+               <br>
+               📧 muhammetmertkus@gmail.com
+               <br>
+               🌐 <a href="https://github.com/muhammetmertkus" target="_blank" 
+                     style="color: #3498db; text-decoration: none;">GitHub</a> | 
+               💼 <a href="https://www.linkedin.com/in/muhammet-mert-ku%C5%9F-278247184/" 
+                     target="_blank" style="color: #3498db; text-decoration: none;">LinkedIn</a>
+           </p>
+           <div style="margin-top: 10px;">
+               <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                   <span style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                               padding: 5px 10px; border-radius: 15px; font-size: 14px;
+                               box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                       🌞 Güneş Enerjisi Sistemleri
+                   </span>
+                   <span style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                               padding: 5px 10px; border-radius: 15px; font-size: 14px;
+                               box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                       ⚡ Enerji Verimliliği
+                   </span>
+                   <span style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                               padding: 5px 10px; border-radius: 15px; font-size: 14px;
+                               box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                       🏢 Bina Enerji Sistemleri
+                   </span>
+               </div>
+               <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+                   <span style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+                               padding: 5px 10px; border-radius: 15px; font-size: 14px;
+                               box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                       💻 Python
+                   </span>
+                   <span style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+                               padding: 5px 10px; border-radius: 15px; font-size: 14px;
+                               box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                       💻 C++
+                   </span>
+                   <span style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+                               padding: 5px 10px; border-radius: 15px; font-size: 14px;
+                               box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                       💻 MATLAB
+                   </span>
+                   <span style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+                               padding: 5px 10px; border-radius: 15px; font-size: 14px;
+                               box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                       ⚡ Elektrik Sistemleri
+                   </span>
+               </div>
+           </div>
+       </div>
+   </div>
+   """,
+   unsafe_allow_html=True
+
 )
-
-
 # ==========================================
 # Sidebar ile Kullanıcı Girdileri
 # ==========================================
@@ -147,8 +192,8 @@ st.sidebar.subheader("Güneş Paneli Analizi")
 latitude = st.sidebar.number_input("Enlem (°)", value=39.72, step=0.01, format="%.2f")
 T_ref = st.sidebar.number_input("Referans Sıcaklık (°C)", value=25, step=1)
 G_ref = st.sidebar.number_input("Referans Işınım (W/m²)", value=1000, step=100)
-n_parallel = st.sidebar.number_input("Paralel Bağlı Modül Sayısı", value=88, step=1)
-n_series = st.sidebar.number_input("Seri Bağlı Modül Sayısı", value=7, step=1)
+n_parallel = st.sidebar.number_input("Paralel Bağlı Modül Sayısı", value=74, step=1)
+n_series = st.sidebar.number_input("Seri Bağlı Modül Sayısı", value=16, step=1)
 
 # Panel Parametreleri
 st.sidebar.subheader("Panel Parametreleri (STC)")
@@ -356,13 +401,14 @@ results_with_counts_df = calculate_building_energy(data_with_counts, power_facto
 # ==========================================
 # Tabs
 # ==========================================
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "Güneş Paneli Analizi",
-    "Bina Enerji Tüketimi Analizi",
+    "Bina Enerji Tüketimi Analizi", 
     "Finansal Hesaplamalar",
     "Tablolar ve Veri İndirme",
-    "Program Nasıl Çalışır"
-    
+    "Program Nasıl Çalışır",
+    "Simulink Karşılaştırma",
+    "Forecast Sonuçları"
 ])
 
 # ==========================================
@@ -376,7 +422,7 @@ with tab1:
     </div>
     """, unsafe_allow_html=True)
 
-    # Aylara Göre Güneş Sapma Açısı ve Optimum Panel Açısı
+    # Aylara Göre Güneş Sapma Açısı ve Optimum Panel A��ıs��
     fig1 = go.Figure()
     fig1.add_trace(go.Scatter(
         x=df_solar['Ay'],
@@ -1277,12 +1323,12 @@ with tab4:
         results_with_counts_df.style.format({
             'Toplam Günlük Enerji (kWh)': "{:.2f}",
             'Toplam Aktif Güç (W)': "{:.2f}",
-            'Toplam Reaktif Gü�� (VAR)': "{:.2f}"
+            'Toplam Reaktif Güç (VAR)': "{:.2f}"
         }).background_gradient(
             cmap='Purples', 
             subset=['Toplam Günlük Enerji (kWh)']
         )
-    )  # Eksik parantez eklendi
+    )  # Parantez düzeltildi
     
     st.download_button(
         label="📥 Bina Enerji Verilerini İndir (CSV)",
@@ -1504,3 +1550,15 @@ with fin_tab5:
             'border-color': '#dee2e6'
         })
     )
+
+# Yeni sekme içeriği
+with tab6:
+    st.markdown("### 🔄 Simulink Karşılaştırma")
+    try:
+        simulink_karsilastirma(panel_data, solar_data, panel_parameters, results_with_counts_df)
+    except Exception as e:
+        st.error(f"Simulink karşılaştırma yüklenirken bir hata oluştu: {str(e)}")
+
+# Zaman Serisi Analizi Sekmesi
+with tab7:
+    show_time_series_analysis()
