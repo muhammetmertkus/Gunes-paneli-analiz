@@ -80,7 +80,7 @@ Projenin canlı demo uygulamasına [buradan](https://mertdisturbution.streamlit.
 1. Gerekli paketleri yükleyin:
 ```
 pip install -r requirements.txt
-
+```
 ## 📊 Kullanım Kılavuzu
 
 1. **Güneş Paneli Analizi**
@@ -107,13 +107,7 @@ pip install -r requirements.txt
 - 🔗 [LinkedIn](https://www.linkedin.com/in/muhammet-mert-ku%C5%9F-278247184/)
 - 🔗 [GitHub](https://github.com/muhammetmertkus)
 
-## 🤝 Katkıda Bulunma
 
-1. Projeyi fork edin
-2. Feature branch oluşturun (`git checkout -b feature/YeniOzellik`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Yeni özellik eklendi'`)
-4. Branch'i push edin (`git push origin feature/YeniOzellik`)
-5. Pull Request oluşturun
 
 ## 📝 Lisans
 
