@@ -11,7 +11,16 @@ Bu platform, **Eskişehir Osmangazi Üniversitesi** kampüsünün enerji ihtiya�
 
 ## 🖥️ Demo Uygulama
 
-Projenin canlı demo uygulamasına [buradan](https://mertdisturbution.streamlit.app/) ulaşabilirsiniz.
+Projenin canlı demo uygulamasına https://mertdisturbution.streamlit.app adresinden ulaşabilirsiniz.
+
+## 👨‍💻 Geliştirici
+
+**Muhammet Mert Kuş**
+- 🎓 Elektrik ve Elektronik Mühendisi
+- 🏫 Eskişehir Osmangazi Üniversitesi
+- 📧 muhammetmertkus@gmail.com
+- 🔗 [LinkedIn](https://www.linkedin.com/in/muhammet-mert-ku%C5%9F-278247184/)
+- 🔗 [GitHub](https://github.com/muhammetmertkus)
 
 ### Temel Hedefler:
 - 🏛️ **Kampüs Enerji Bağımsızlığı:** Elektrik ihtiyacının öz kaynaklardan karşılanması
@@ -97,15 +106,6 @@ pip install -r requirements.txt
    - Veri aralığını seçin
    - Model parametrelerini ayarlayın
    - Tahmin sonuçlarını görüntüleyin
-
-## 👨‍💻 Geliştirici
-
-**Muhammet Mert Kuş**
-- 🎓 Elektrik ve Elektronik Mühendisi
-- 🏫 Eskişehir Osmangazi Üniversitesi
-- 📧 muhammetmertkus@gmail.com
-- 🔗 [LinkedIn](https://www.linkedin.com/in/muhammet-mert-ku%C5%9F-278247184/)
-- 🔗 [GitHub](https://github.com/muhammetmertkus)
 
 
 
