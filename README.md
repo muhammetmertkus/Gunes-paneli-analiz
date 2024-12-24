@@ -36,11 +36,14 @@ Projenin canlı demo uygulamasına https://mertdisturbution.streamlit.app adresi
 - **İnvertör:** 3-Seviyeli IGBT Köprüsü
 - **Transformatör:** 120 kV / 25 kV, 47 MVA
 
-### 2. Yazılım Sistemleri
-- **Analiz Platformu:** Python + Streamlit
-- **Simülasyon:** MATLAB/Simulink
-- **Veri Analizi:** Pandas, NumPy, Scikit-learn
-- **Görselleştirme:** Plotly, Matplotlib
+## Kullanılan Teknolojiler
+
+- Python 3.9+
+- Streamlit
+- Pandas
+- NumPy
+- Plotly
+- Scikit-learn
 
 ## 📊 Analiz Modülleri
 
@@ -85,36 +88,34 @@ Projenin canlı demo uygulamasına https://mertdisturbution.streamlit.app adresi
 - **Yıllık Enerji Üretimi:** 2.4 GWh
 
 ## ⚙️ Kurulum
+1. Projeyi bilgisayarınıza indirin:
+```bash
+git clone https://github.com/muhammetmertkus/Gunes-paneli-analiz.git
 
-1. Gerekli paketleri yükleyin:
+```
+2. Gerekli paketleri yükleyin:
 ```
 pip install -r requirements.txt
 ```
-## 📊 Kullanım Kılavuzu
+3. Uygulamayı başlatın:
+```bash
+streamlit run app.py
+```
 
-1. **Güneş Paneli Analizi**
-   - Panel özelliklerini girin
-   - Lokasyon bilgilerini seçin
-   - Analiz sonuçlarını inceleyin
+## Kullanım
 
-2. **Bina Analizi**
-   - Tüketim verilerini yükleyin
-   - Bina tipini seçin
-   - Optimizasyon önerilerini görüntüleyin
-
-3. **Tahmin Analizi**
-   - Veri aralığını seçin
-   - Model parametrelerini ayarlayın
-   - Tahmin sonuçlarını görüntüleyin
-
-
+1. Tarayıcınızda `http://localhost:8501` adresine gidin
+2. Sol menüden istediğiniz analiz türünü seçin:
+   - Veri Görselleştirme
+   - Üretim Tahminleri
+   - Hava Durumu Analizi
 
 ## 📝 Lisans
 
 Bu proje MIT lisansı altında lisanslanmıştır.
-
 ---
 
 <div align="center">
   <p>🌟 Sürdürülebilir Kampüs için Akıllı Çözümler 🌟</p>
 </div>
+
